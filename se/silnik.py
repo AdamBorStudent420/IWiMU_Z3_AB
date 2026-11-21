@@ -95,6 +95,10 @@ def zapytaj_konsola(baza):
         podpowiedz = f" ({'/'.join(opis['wartosci'])})" if "wartosci" in opis else ""
         while True:
             odp = input(f"{opis.get('pytanie', atrybut)}{podpowiedz} ").strip()
+            if odp == "?":
+                if powod:
+                    print("   Sprawdzam regułę:", opisz_regule(powod))
+                continue
             if opis.get("typ") == "liczba":
                 try:
                     return float(odp.replace(",", "."))
