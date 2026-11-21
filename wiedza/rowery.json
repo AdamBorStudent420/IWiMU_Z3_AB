@@ -1,0 +1,325 @@
+{
+  "nazwa": "Dobór roweru",
+  "cel": "wybor_roweru",
+  "atrybuty": {
+    "przeznaczenie": {
+      "typ": "wybor",
+      "pytanie": "Jakie jest główne przeznaczenie roweru?",
+      "wartosci": [
+        "dojazdy do pracy",
+        "jazda rekreacyjna",
+        "dalekie trasy",
+        "jazda sportowa",
+        "jazda wyczynowa"
+      ]
+    },
+    "ile_km": {
+      "typ": "liczba",
+      "pytanie": "Ile kilometrów planujesz pokonywać (km)?",
+      "zakres": [1, 300]
+    },
+    "duzo_miejsca": {
+      "typ": "wybor",
+      "pytanie": "Czy masz dużo miejsca do przechowywania roweru?",
+      "wartosci": ["tak", "nie"]
+    },
+    "trudny_teren": {
+      "typ": "wybor",
+      "pytanie": "Czy planujesz jazdę w trudnym terenie (piasek, śnieg, błoto)?",
+      "wartosci": ["tak", "nie"]
+    },
+    "spory_bagaz": {
+      "typ": "wybor",
+      "pytanie": "Czy planujesz wozić spory bagaż (sakwy)?",
+      "wartosci": ["tak", "nie"]
+    },
+    "wyscigi": {
+      "typ": "wybor",
+      "pytanie": "Czy planujesz startować w wyścigach?",
+      "wartosci": ["tak", "nie"]
+    },
+    "teren_sport": {
+      "typ": "wybor",
+      "pytanie": "Po jakim terenie będziesz głównie jeździć?",
+      "wartosci": [
+        "jazda po lesie",
+        "jazda po asfalcie"
+      ]
+    },
+    "teren_wyczynowy": {
+      "typ": "wybor",
+      "pytanie": "Gdzie planujesz jazdę wyczynową?",
+      "wartosci": [
+        "jazda po lesie",
+        "jazda w skateparku"
+      ]
+    },
+    "wspomaganie_dojazd": {
+      "typ": "wniosek",
+      "wartosci": ["elektryczne", "klasyczne"]
+    },
+    "dystans_rekreacja": {
+      "typ": "wniosek",
+      "wartosci": ["dlugi", "krotki"]
+    },
+    "typ_wyprawy": {
+      "typ": "wniosek",
+      "wartosci": ["z_bagazem", "lekka"]
+    },
+    "styl_sportowy": {
+      "typ": "wniosek",
+      "wartosci": ["wyscigowy", "treningowy"]
+    },
+    "wybor_roweru": {
+      "typ": "wniosek",
+      "wartosci": [
+        "rower miejski elektryczny",
+        "rower składany elektryczny",
+        "rower miejski",
+        "rower składany",
+        "rower fatbike",
+        "rower crossowy",
+        "rower mtb elektryczny",
+        "rower trekkingowy",
+        "rower mtb hardtail",
+        "rower mtb xc",
+        "rower szosowy",
+        "rower gravelowy",
+        "rower triathlonowy",
+        "rower mtb full",
+        "rower bmx"
+      ]
+    }
+  },
+  "reguly": [
+    {
+      "id": "R1",
+      "jesli": [
+        ["przeznaczenie", "==", "dojazdy do pracy"],
+        ["ile_km", ">", 20]
+      ],
+      "to": ["wspomaganie_dojazd", "elektryczne"],
+      "metafora": "Codzienne dojazdy powyżej 20 km wymagają wspomagania elektrycznego, aby oszczędzać siły."
+    },
+    {
+      "id": "R2",
+      "jesli": [
+        ["przeznaczenie", "==", "dojazdy do pracy"],
+        ["ile_km", "<=", 20]
+      ],
+      "to": ["wspomaganie_dojazd", "klasyczne"],
+      "metafora": "Krótkie dojazdy do 20 km nie wymagają silnika elektrycznego."
+    },
+    {
+      "id": "R3",
+      "jesli": [
+        ["przeznaczenie", "==", "jazda rekreacyjna"],
+        ["ile_km", ">", 100]
+      ],
+      "to": ["dystans_rekreacja", "dlugi"],
+      "metafora": "Dystans rekreacyjny powyżej 100 km przekracza typowy zasięg baterii i wymaga roweru bez ciężkiego silnika."
+    },
+    {
+      "id": "R4",
+      "jesli": [
+        ["przeznaczenie", "==", "jazda rekreacyjna"],
+        ["ile_km", "<=", 100]
+      ],
+      "to": ["dystans_rekreacja", "krotki"],
+      "metafora": "Wycieczki rekreacyjne do 100 km mieszczą się w zasięgu wspomagania elektrycznego."
+    },
+    {
+      "id": "R5",
+      "jesli": [
+        ["przeznaczenie", "==", "dalekie trasy"],
+        ["spory_bagaz", "==", "tak"]
+      ],
+      "to": ["typ_wyprawy", "z_bagazem"],
+      "metafora": "Dalekie wyprawy z ciężkim bagażem wymagają ramy przystosowanej do sakw i bagażnika."
+    },
+    {
+      "id": "R6",
+      "jesli": [
+        ["przeznaczenie", "==", "dalekie trasy"],
+        ["spory_bagaz", "==", "nie"]
+      ],
+      "to": ["typ_wyprawy", "lekka"],
+      "metafora": "Dalekie trasy bez dużego bagażu pozwalają na szybszy i lżejszy rower terenowy."
+    },
+    {
+      "id": "R7",
+      "jesli": [
+        ["przeznaczenie", "==", "jazda sportowa"],
+        ["wyscigi", "==", "tak"]
+      ],
+      "to": ["styl_sportowy", "wyscigowy"],
+      "metafora": "Start w zawodach wymaga agresywnej, lekkiej konstrukcji nastawionej na maksymalną prędkość."
+    },
+    {
+      "id": "R8",
+      "jesli": [
+        ["przeznaczenie", "==", "jazda sportowa"],
+        ["wyscigi", "==", "nie"]
+      ],
+      "to": ["styl_sportowy", "treningowy"],
+      "metafora": "Sportowa jazda bez wyścigów pozwala postawić na większą wszechstronność lub aerodynamikę treningową."
+    },
+    {
+      "id": "R9",
+      "jesli": [
+        ["wspomaganie_dojazd", "==", "elektryczne"],
+        ["duzo_miejsca", "==", "tak"]
+      ],
+      "to": ["wybor_roweru", "rower miejski elektryczny"],
+      "metafora": "Na długie dojazdy z dostępnym miejscem parkingowym najlepszy jest wygodny pełnowymiarowy elektryk.",
+      "coto": "Komfortowy rower miejski ze wspomaganiem elektrycznym, wyprostowaną pozycją i błotnikami."
+    },
+    {
+      "id": "R10",
+      "jesli": [
+        ["wspomaganie_dojazd", "==", "elektryczne"],
+        ["duzo_miejsca", "==", "nie"]
+      ],
+      "to": ["wybor_roweru", "rower składany elektryczny"],
+      "metafora": "Gdy brakuje miejsca w domu lub biurze, długie dojazdy ułatwi kompaktowy składak z silnikiem.",
+      "coto": "Kompaktowy rower elektryczny ze składaną ramą, łatwy do przechowywania i przewozu w komunikacji."
+    },
+    {
+      "id": "R11",
+      "jesli": [
+        ["wspomaganie_dojazd", "==", "klasyczne"],
+        ["duzo_miejsca", "==", "tak"]
+      ],
+      "to": ["wybor_roweru", "rower miejski"],
+      "metafora": "Krótkie dojazdy i duża przestrzeń do przechowywania sprzyjają klasycznemu rowerowi miejskiemu.",
+      "coto": "Klasyczny rower z wygodnym siodełkiem, osłoną łańcucha i wyprostowaną pozycją do jazdy po mieście."
+    },
+    {
+      "id": "R12",
+      "jesli": [
+        ["wspomaganie_dojazd", "==", "klasyczne"],
+        ["duzo_miejsca", "==", "nie"]
+      ],
+      "to": ["wybor_roweru", "rower składany"],
+      "metafora": "Na krótkie trasy przy ograniczonej przestrzeni najlepiej sprawdza się lekki składak.",
+      "coto": "Lekki rower ze składaną ramą i małymi kołami, idealny do małego mieszkania."
+    },
+    {
+      "id": "R13",
+      "jesli": [
+        ["dystans_rekreacja", "==", "dlugi"],
+        ["trudny_teren", "==", "tak"]
+      ],
+      "to": ["wybor_roweru", "rower fatbike"],
+      "metafora": "Bardzo trudny teren na długiej wycieczce wymaga ekstremalnie szerokich opon.",
+      "coto": "Rower terenowy na bardzo szerokich oponach, zapewniający przyczepność na piasku, śniegu i błocie."
+    },
+    {
+      "id": "R14",
+      "jesli": [
+        ["dystans_rekreacja", "==", "dlugi"],
+        ["trudny_teren", "==", "nie"]
+      ],
+      "to": ["wybor_roweru", "rower crossowy"],
+      "metafora": "Długie trasy po drogach utwardzonych i lekkich ścieżkach to naturalne środowisko roweru crossowego.",
+      "coto": "Uniwersalny rower na dużych kołach 28 cali z przednim amortyzatorem, dobry na asfalt i szuter."
+    },
+    {
+      "id": "R15",
+      "jesli": [
+        ["dystans_rekreacja", "==", "krotki"],
+        ["trudny_teren", "==", "tak"]
+      ],
+      "to": ["wybor_roweru", "rower fatbike"],
+      "metafora": "Ekstremalnie trudny teren ma pierwszeństwo przed wspomaganiem elektrycznym, bo kluczowa jest szerokość opon.",
+      "coto": "Rower terenowy na bardzo szerokich oponach, zapewniający przyczepność na piasku, śniegu i błocie."
+    },
+    {
+      "id": "R16",
+      "jesli": [
+        ["dystans_rekreacja", "==", "krotki"]
+      ],
+      "to": ["wybor_roweru", "rower mtb elektryczny"],
+      "metafora": "Rekreacja do 100 km w standardowych warunkach jest najprzyjemniejsza ze wspomaganiem elektrycznym.",
+      "coto": "Górski rower ze wspomaganiem elektrycznym ułatwiający podjazdy i dłuższą jazdę rekreacyjną."
+    },
+    {
+      "id": "R17",
+      "jesli": [
+        ["typ_wyprawy", "==", "z_bagazem"]
+      ],
+      "to": ["wybor_roweru", "rower trekkingowy"],
+      "metafora": "Rower trekkingowy jest fabrycznie przygotowany do długich wypraw z bagażem.",
+      "coto": "Wytrzymały rower wyprawowy wyposażony w bagażnik, błotniki, oświetlenie i wygodną geometrię."
+    },
+    {
+      "id": "R18",
+      "jesli": [
+        ["typ_wyprawy", "==", "lekka"]
+      ],
+      "to": ["wybor_roweru", "rower mtb hardtail"],
+      "metafora": "Bez ciężkich sakw rower hardtail daje lepsze właściwości terenowe na długich trasach.",
+      "coto": "Rower górski ze sztywną tylną ramą i przednim amortyzatorem, wydajny na zróżnicowanych trasach."
+    },
+    {
+      "id": "R19",
+      "jesli": [
+        ["styl_sportowy", "==", "wyscigowy"],
+        ["teren_sport", "==", "jazda po lesie"]
+      ],
+      "to": ["wybor_roweru", "rower mtb xc"],
+      "metafora": "Wyścigi w terenie leśnym wymagają lekkiego i zwrotnego roweru cross-country.",
+      "coto": "Lekki wyścigowy rower górski (Cross-Country) zoptymalizowany pod szybkie podjazdy i leśne trasy."
+    },
+    {
+      "id": "R20",
+      "jesli": [
+        ["styl_sportowy", "==", "wyscigowy"],
+        ["teren_sport", "==", "jazda po asfalcie"]
+      ],
+      "to": ["wybor_roweru", "rower szosowy"],
+      "metafora": "Do wyścigów na asfalcie niezbędna jest niska masa i aerodynamiczna pozycja szosówki.",
+      "coto": "Lekki rower z kierownicą typu baranek i wąskimi oponami do szybkiej jazdy po asfalcie."
+    },
+    {
+      "id": "R21",
+      "jesli": [
+        ["styl_sportowy", "==", "treningowy"],
+        ["teren_sport", "==", "jazda po lesie"]
+      ],
+      "to": ["wybor_roweru", "rower gravelowy"],
+      "metafora": "Treningowa szybka jazda po leśnych duktach i szutrach najlepiej pasuje do roweru gravelowego.",
+      "coto": "Szybki rower z kierownicą typu baranek i szerszymi oponami z bieżnikiem na drogi szutrowe i leśne."
+    },
+    {
+      "id": "R22",
+      "jesli": [
+        ["styl_sportowy", "==", "treningowy"],
+        ["teren_sport", "==", "jazda po asfalcie"]
+      ],
+      "to": ["wybor_roweru", "rower triathlonowy"],
+      "metafora": "Samotna szybka jazda treningowa na asfalcie wykorzystuje pełną aerodynamikę konstrukcji triathlonowej.",
+      "coto": "Specjalistyczny rower szosowy z lemondką, zaprojektowany do utrzymywania wysokiej prędkości na płaskim asfalcie."
+    },
+    {
+      "id": "R23",
+      "jesli": [
+        ["przeznaczenie", "==", "jazda wyczynowa"],
+        ["teren_wyczynowy", "==", "jazda po lesie"]
+      ],
+      "to": ["wybor_roweru", "rower mtb full"],
+      "metafora": "Wyczynowa jazda w lesie i zjazdy wymagają pełnego zawieszenia z przodu i z tyłu.",
+      "coto": "Rower górski z pełną amortyzacją (full suspension), stworzony do trudnych zjazdów i skoków w terenie."
+    },
+    {
+      "id": "R24",
+      "jesli": [
+        ["przeznaczenie", "==", "jazda wyczynowa"],
+        ["teren_wyczynowy", "==", "jazda w skateparku"]
+      ],
+      "to": ["wybor_roweru", "rower bmx"],
+      "metafora": "Ewolucje na rampach i w skateparku wymagają pancernej, małej i zwrotnej konstrukcji BMX.",
+      "coto": "Mały, wyjątkowo wytrzymały rower na kołach 20 cali do wykonywania trików w skateparku."
+    }
+  ]
+}
